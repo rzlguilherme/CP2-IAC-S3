@@ -13,12 +13,6 @@ resource "aws_s3_bucket" "s3-guilherme-fiap" {
   bucket = "s3-guilherme-fiap"
 }
 
-# ACL S3
-resource "aws_s3_bucket_acl" "acls3" {
-  bucket = aws_s3_bucket.s3-guilherme-fiap.id
-  acl    = "public-read"
-}
-
 # POLICY S3
 resource "aws_s3_bucket_policy" "policys3" {
   bucket = aws_s3_bucket.s3-guilherme-fiap.id
