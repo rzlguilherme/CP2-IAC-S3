@@ -8,14 +8,6 @@ terraform {
   }
 }
 
-# REGION
-provider "aws" {
-    region                  = "us-east-1"
-    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-}
-
 # BUCKET S3
 resource "aws_s3_bucket" "s3-guilherme-fiap" {
   bucket = "s3-guilherme-fiap"

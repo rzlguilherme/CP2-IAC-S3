@@ -24,21 +24,19 @@ jobs:
     - name: Verify Terraform version
       run: terraform --version
 
-    - name: Terraform init
-      env:
+    - name: Set Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: us-east-1
+
+    - name: Terraform init
       run: terraform init -input=false
 
     - name: Terraform validation
       run: terraform validate
 
     - name: Terraform apply
-      env:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws-region: us-east-1
       run: terraform apply -auto-approve -input=false
