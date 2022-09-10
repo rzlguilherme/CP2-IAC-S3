@@ -4,9 +4,14 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 3.0"
-      region  = "us-east-1"
     }
   }
+}
+
+# REGION
+provider "aws" {
+  version = "~> 2.12.0"
+  region  = "us-east-1"
 }
 
 # BUCKET S3
