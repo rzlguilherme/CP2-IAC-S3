@@ -8,11 +8,6 @@ terraform {
   }
 }
 
-# REGION
-provider "aws" {
-    region = "us-east-1"
-}
-
 # BUCKET S3
 resource "aws_s3_bucket" "s3-guilherme-fiap" {
   bucket = "s3-guilherme-fiap"
