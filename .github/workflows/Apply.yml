@@ -1,1 +1,47 @@
+name: Provisioning S3 Bucket and updating index.html
 
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout repo
+      uses: actions/checkout@v1
+
+    - name: Install Terraform
+      env:
+            TERRAFORM_VERSION: "1.2.8"
+      run: |
+        tf_version=$TERRAFORM_VERSION
+        wget https://releases.hashicorp.com/terraform/"$tf_version"/terraform_"$tf_version"_linux_amd64.zip
+        unzip terraform_"$tf_version"_linux_amd64.zip
+        sudo mv terraform /usr/local/bin/
+    - name: Verify Terraform version
+      run: terraform --version
+
+    - name: Terraform init
+      env:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws-region: us-east-1
+      run: terraform init -input=false
+
+    - name: Terraform plan
+      run: terraform plan
+
+    - name: Terraform validation
+      run: terraform validate
+
+    - name: Terraform apply
+      env:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws-region: us-east-1
+      run: terraform apply -auto-approve -input=false
