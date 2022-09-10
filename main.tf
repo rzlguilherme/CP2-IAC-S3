@@ -10,7 +10,7 @@ terraform {
 
 # REGION
 provider "aws" {
-  version = "~> 2.12.0"
+  version = "~> 3.0"
   region  = "us-east-1"
 }
 
