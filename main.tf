@@ -58,4 +58,7 @@ resource "aws_s3_bucket_object" "s3-guilherme-fiap-objects" {
     key      = each.value
     source   = "data/${each.value}"
     acl      = "public-read"
+    content_type = "text/html"
+    content_type = "text/css"
+    content_type = "image/png"
 }
